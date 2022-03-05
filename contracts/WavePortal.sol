@@ -6,6 +6,22 @@ import "hardhat/console.sol";
 
 contract WavePortal {
     uint256 totalWaves;
+
+    // A little magic, google what events are in Solidity.
+    event NewWave(address indexed from, uint256 timestamp, string message );
+
+    /* 
+    Created a struct named Wave.
+    A Struct is basically a custom datatype where we can customise what we want to hold inside it. */
+    struct Wave {
+        address waver; // Address of the user who waved.
+        string message; // The message the user sent.
+        uint256 timestamp; // The timestamp when the user waved.
+    }
+
+    /* I declare a variable waves that lets me store array of structs.*/
+    Wave[] waves;
+
     constructor() {
         console.log("Yo, yo, I am a contract and I am smart!");
     }
