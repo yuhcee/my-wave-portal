@@ -26,6 +26,11 @@ contract WavePortal {
         console.log("Yo, yo, I am a contract and I am smart!");
     }
 
+  /*
+     * You'll notice I changed the wave function a little here as well and
+     * now it requires a string called _message. This is the message our user
+     * sends us from the frontend!
+     */
     function wave (string memory _message) public {
         totalWaves += 1;
         console.log("%s waved w/ message %s", msg.sender, _message);
