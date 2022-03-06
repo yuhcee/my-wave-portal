@@ -13,17 +13,19 @@ const main = async () => {
     console.log('wave count', waveCount.toNumber());
 
     // Let's send a few waves
-    const signers = await hre.ethers.getSigners();
-    // console.log('Signers =>', signers);
-    // console.log('Owner =>', owner);
-    // console.log('Random Person =>', randomPerson);
-    for (let signer of signers) {
-        let waveTxn = await waveContract.connect(signer).wave();
-        await waveTxn.wait();
-    }
+    let waveTxn = await waveContract.wave('A message');
+    await waveTxn.wait(); // wait for transaction to be mined.
+
+    const [_, randomPerson] = await hre.ethers.getSigners();
+
+    waveTxn = await waveContract.connect(randomPerson).wave('Another message');
+    await waveTxn.wait();
 
     waveCount = await waveContract.getTotalWaves();
     console.log('A total number of %d users waved! => Yayyyy!!! ', waveCount);
+
+    let allWaves = await waveContract.getAllWaves();
+    console.log(allWaves);
 };
 
 const runMain = async () => {
